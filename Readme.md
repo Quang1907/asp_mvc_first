@@ -18,3 +18,11 @@ options.ViewLocationFormats.Add("/MyView/{1}/{0}" + RazorViewEngine.ViewExtensio
 - ViewData
 - ViewBag
 - TempData
+
+## areas
+- la ten dung de routing
+- la cau truc thu muc chua mvc
+- thiet lap area cho controller bang ```[Area("AreaName")]```
+```
+dotnet aspnet-codegenerator area Product
+```

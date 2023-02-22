@@ -1,5 +1,9 @@
+using ASP_MVC.ExtendMethods;
 using ASP_MVC.Services;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.AspNetCore.Routing.Constraints;
 
 namespace ASP_MVC
 {
@@ -32,8 +36,7 @@ namespace ASP_MVC
             //builder.Services.AddSingleton<ProductService, ProductService>();
             //builder.Services.AddSingleton(typeof(ProductService));
             builder.Services.AddSingleton(typeof(ProductService), typeof(ProductService));
-
-
+            builder.Services.AddSingleton<PlanetService>();
 
 
             var app = builder.Build();
@@ -49,17 +52,96 @@ namespace ASP_MVC
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.AddStatusCodePage(); // tuy bien loi response: 400-500 
+
             app.UseRouting();
 
             app.UseAuthorization(); // xac thuc quyen truy cap
             app.UseAuthentication(); // xac dinh danh tinh
 
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapGet("/sayhi", async context =>
+                {
+                    await context.Response.WriteAsync($"Hello ASPNET MVC");
+                });
+
+                //endpoints.MapControllers();
+                //endpoints.MapControllerRoute();
+                //endpoints.MapDefaultControllerRoute();
+                //endpoints.MapAreaControllerRoute();
+
+                //[AcceptVerbs]
+
+                //[Route]
+
+                //[HttpGet]
+                //[HttpPost]
+                //[HttpPut]
+                //[HttpDelete]
+                //[HttpHead]
+                //[HttpPath]
+
+
+                // url => start-here
+                // controller => 
+                // action => 
+                // area => 
+
+                endpoints.MapControllers();
+
+                // xemsanpham/1
+                // url bat ky/id
+                endpoints.MapControllerRoute(
+                    name: "first",
+                    pattern: "/{url:regex(^((xemsanpham)|(viewProduct))$)}/{id:range(2,3)}",
+                    defaults: new
+                    {
+                        controller = "First",
+                        action = "ViewProduct",
+                        //id = 1,
+                    }
+                //constraints: new
+                //{
+                //url = new RegexRouteConstraint(@"^((xemsanpham)|(viewProduct))$"),
+                //id = new RangeRouteConstraint(2, 4)
+
+                //url = "xemsanpham",
+                //url = new StringRouteConstraint("xemsanpham"), 
+                //}
+                );
+
+                endpoints.MapAreaControllerRoute(
+                    name: "admin",
+                    areaName: "Admin",
+                    pattern: "{controller}/{action=Index}/{id?}"
+                );
+
+
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}"
+                );
+                // sfart-here  || start-here/1
+                //defaults : new
+                //{
+                //    controller = "First",
+                //    action = "ViewProduct",
+                //    id = 3
+                //}
+
+
+                endpoints.MapRazorPages();
+            });
+
+
+            //app.MapControllerRoute(
+            //    name: "default",
+            //    pattern: "{controller=Home}/{action=Index}/{id?}");
 
             // URL : /{controller}/{action}/{id?}
             // ABC/XYZ => controller = ABC, Action = XYZ
-            app.MapControllerRoute(
-                name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
             app.MapRazorPages();
 
@@ -67,3 +149,7 @@ namespace ASP_MVC
         }
     }
 }
+
+/**
+ * dotnet aspnet-codegenerator -h
+ */

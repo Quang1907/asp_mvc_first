@@ -1,0 +1,14 @@
+﻿@using ASP_MVC.Models
+@model List<Product>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Danh sach</h1>
+
+<ul>
+    @foreach (var product in Model)
+    {
+        <li>@product.Name</li>
+    }
+</ul>

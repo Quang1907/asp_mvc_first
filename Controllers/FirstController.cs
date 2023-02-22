@@ -38,6 +38,7 @@ namespace ASP_MVC.Controllers
         [TempData]
         public string StatusMessage { get; set; }
 
+        [AcceptVerbs("POST", "GET")]
         public IActionResult ViewProduct(int? id)
         {
             //var product = (from p in _productService
