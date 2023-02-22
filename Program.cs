@@ -1,9 +1,11 @@
 using ASP_MVC.ExtendMethods;
+using ASP_MVC.Models;
 using ASP_MVC.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.AspNetCore.Routing.Constraints;
+using Microsoft.EntityFrameworkCore;
 
 namespace ASP_MVC
 {
@@ -12,6 +14,12 @@ namespace ASP_MVC
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Services.AddDbContext<AppDbContext>(options =>
+            {
+                var connectString = builder.Configuration.GetConnectionString("ShopContext");
+                options.UseSqlServer(connectString);
+            });
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
@@ -114,6 +122,12 @@ namespace ASP_MVC
                 endpoints.MapAreaControllerRoute(
                     name: "admin",
                     areaName: "Admin",
+                    pattern: "{controller}/{action=Index}/{id?}"
+                );
+
+                endpoints.MapAreaControllerRoute(
+                    name: "database",
+                    areaName: "Database",
                     pattern: "{controller}/{action=Index}/{id?}"
                 );
 
