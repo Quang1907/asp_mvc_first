@@ -126,6 +126,13 @@ namespace ASP_MVC
                 );
 
                 endpoints.MapAreaControllerRoute(
+                   name: "contact",
+                   areaName: "Contact",
+                   pattern: "{controller}/{action=Index}/{id?}"
+               );
+
+
+                endpoints.MapAreaControllerRoute(
                     name: "database",
                     areaName: "Database",
                     pattern: "{controller}/{action=Index}/{id?}"
@@ -166,4 +173,5 @@ namespace ASP_MVC
 
 /**
  * dotnet aspnet-codegenerator -h
+ * dotnet aspnet-codegenerator controller -name Contact -namespace ASP_MVC.Areas.Contact.Controllers -m ASP_MVC.Models.Contact -udl -dc ASP_MVC.Models.AppDbContext -outDir Areas/Contact/Controllers/
  */

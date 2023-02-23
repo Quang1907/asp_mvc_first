@@ -1,0 +1,29 @@
+﻿$contactBackground: #626eff;
+
+.contact-firstcol {
+    background: $contactBackground;
+    color: white;
+    text-align: center;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+
+    h4 {
+        line-height: 40px;
+        font-weight: 400;
+        margin-top: 20px;
+    }
+
+    img {
+        max-width: 100px;
+    }
+}
+
+.form-contact {
+    label {
+        font-weight: 700;
+    }
+
+    .btn-primary {
+        background: $contactBackground !important;
+    }
+}

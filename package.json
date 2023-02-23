@@ -1,0 +1,33 @@
+{
+  "name": "asp_mvc",
+  "version": "1.0.0",
+  "description": "- la 1 lop ke thua tu lop controller: Microsoft.AspNetCore.Mvc.Controller\r - Action trong controller la 1 phuong thuc public ( ko duoc static )\r - Action tra ve bat ky kieu du lieu nao, thuong la IActionResult\r - Cac dich vu injection vao controller qua ham tao\r ## view \r - la file.cshtml\r - view cho Action luu tai: \"/View/ControllerName/ActionName.cshtml\"\r - Them thu muc luu tru view:\r ```\r // {0} -> ten action\r // {1} -> ten controller\r // {2} -> ten areas \r options.ViewLocationFormats.Add(\"/MyView/{1}/{0}\" + RazorViewEngine.ViewExtension);\r ```\r ## Truyen du lieu sang view \r - Model\r - ViewData\r - ViewBag\r - TempData",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Quang1907/asp_mvc_first.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Quang1907/asp_mvc_first/issues"
+  },
+  "homepage": "https://github.com/Quang1907/asp_mvc_first#readme",
+  "dependencies": {
+    "gulp": "^4.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssmin": "^0.2.0",
+    "gulp-less": "^5.0.0",
+    "gulp-postcss": "^9.0.1",
+    "gulp-rename": "^2.0.0",
+    "gulp-sass": "^5.1.0",
+    "gulp-uglify": "^3.0.2",
+    "node-sass": "^8.0.0",
+    "postcss": "^8.4.21",
+    "rimraf": "^4.1.2",
+    "sass": "^1.58.3"
+  }
+}

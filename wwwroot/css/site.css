@@ -1,3 +1,8 @@
+body {
+  background: white;
+  color: #1d1d1f;
+}
+
 html {
   font-size: 14px;
 }
@@ -7,7 +12,6 @@ html {
     font-size: 16px;
   }
 }
-
 html {
   position: relative;
   min-height: 100%;
@@ -15,4 +19,43 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+
+.navbar-app {
+  background: rgba(0, 0, 0, 0.8) !important;
+}
+.navbar-app .text-dark {
+  color: #b9c3ce !important;
+}
+.navbar-app .text-dark:hover {
+  color: white !important;
+}
+.navbar-app .navbar-brand {
+  color: white;
+}
+.navbar-app .navbar-brand:hover {
+  color: gray;
+}
+
+.contact-firstcol {
+  background: #626eff;
+  color: white;
+  text-align: center;
+  border-top-left-radius: 15px;
+  border-bottom-left-radius: 15px;
+}
+.contact-firstcol h4 {
+  line-height: 40px;
+  font-weight: 400;
+  margin-top: 20px;
+}
+.contact-firstcol img {
+  max-width: 100px;
+}
+
+.form-contact label {
+  font-weight: 700;
+}
+.form-contact .btn-primary {
+  background: #626eff !important;
 }

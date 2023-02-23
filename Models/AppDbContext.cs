@@ -26,5 +26,7 @@ namespace ASP_MVC.Models
             //    }
             //}
         }
+
+        public DbSet<Contact> Contacts { get; set; }
     }
 }

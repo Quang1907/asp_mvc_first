@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3 navbar-app">
             <div class="container-fluid">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ASP_MVC</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
@@ -31,8 +31,11 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="admin" asp-controller="Product" asp-action="Index">Product</a>
                         </li>
-                        <partial name="_MenuManagePartial"></partial>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="Contact" asp-controller="Contact" asp-action="SendContact">Lien he</a>
+                        </li>
                     </ul>
+                    <partial name="_MenuManagePartial"></partial>
                 </div>
             </div>
         </nav>
