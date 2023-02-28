@@ -1,8 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace ASP_MVC.Models
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<AppUser>
     {
         public AppDbContext(DbContextOptions options) : base(options)
         {
@@ -17,14 +18,14 @@ namespace ASP_MVC.Models
         {
             base.OnModelCreating(builder);
 
-            //foreach (var entityType in builder.Model.GetEntityTypes())
-            //{
-            //    var tableName = entityType.GetTableName();
-            //    if (tableName.StartsWith("AspNet"))
-            //    {
-            //        entityType.SetTableName(tableName.Substring(6));
-            //    }
-            //}
+            foreach (var entityType in builder.Model.GetEntityTypes())
+            {
+                var tableName = entityType.GetTableName();
+                if (tableName.StartsWith("AspNet"))
+                {
+                    entityType.SetTableName(tableName.Substring(6));
+                }
+            }
         }
 
         public DbSet<Contact> Contacts { get; set; }

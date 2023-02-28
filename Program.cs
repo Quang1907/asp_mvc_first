@@ -1,10 +1,9 @@
-using ASP_MVC.ExtendMethods;
+﻿using ASP_MVC.ExtendMethods;
 using ASP_MVC.Models;
 using ASP_MVC.Services;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc.Razor;
-using Microsoft.AspNetCore.Routing.Constraints;
 using Microsoft.EntityFrameworkCore;
 
 namespace ASP_MVC
@@ -17,9 +16,73 @@ namespace ASP_MVC
 
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
-                var connectString = builder.Configuration.GetConnectionString("ShopContext");
+                var connectString = builder.Configuration.GetConnectionString("ShopContext") ?? throw new Exception("khong tim thay ket noi");
                 options.UseSqlServer(connectString);
             });
+
+            // cau hinh send mail
+
+            builder.Services.AddOptions(); // Kích hoạt Options
+            var mailSetting = builder.Configuration.GetSection("MailSettings");// đọc config
+            builder.Services.Configure<MailSetting>(mailSetting); // đăng ký để Inject
+            builder.Services.AddTransient<IEmailSender, SendMailService>(); // Đăng ký dịch vụ Mail
+
+
+            //builder.Services.AddDefaultIdentity<AppUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            //.AddEntityFrameworkStores<AppDbContext>();
+
+            // cau hinh identity
+            builder.Services.AddIdentity<AppUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>()
+                .AddDefaultTokenProviders();
+
+            builder.Services.Configure<IdentityOptions>(options =>
+            {
+                // Default Lockout settings.
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(5);
+                options.Lockout.MaxFailedAccessAttempts = 5;
+                options.Lockout.AllowedForNewUsers = true;
+                // Default Password settings.
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequiredUniqueChars = 1;
+                // Default User settings.
+                options.User.AllowedUserNameCharacters =
+                        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
+                options.User.RequireUniqueEmail = false;
+                // Default SignIn settings.
+                options.SignIn.RequireConfirmedEmail = true;
+                options.SignIn.RequireConfirmedPhoneNumber = false;
+            });
+
+            // cau hinh xac thuc 
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/login";
+                options.LogoutPath = "/logout";
+                options.AccessDeniedPath = "/khongduoctruycap.html";
+            });
+
+            builder.Services.AddAuthentication()
+                .AddGoogle(options =>
+                {
+                    var gconfig = builder.Configuration.GetSection("Authentication:Google") ?? throw new Exception("Ko tim thay cau hinh google");
+                    options.ClientId = gconfig["ClientId"];
+                    options.ClientSecret = gconfig["ClientSecret"];
+                    options.CallbackPath = "/login-google";
+                })
+                //.AddFacebook(options =>
+                //{
+                //    var fconfig = builder.Configuration.GetSection("Authentication:Facebook") ?? throw new Exception("Ko tim thay cau hinh facebook");
+                //    options.AppId = fconfig["AppId"];
+                //    options.AppSecret = fconfig["AppSecret"];
+                //    options.CallbackPath = "/login-facebook";
+                //})
+                ;
+
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();

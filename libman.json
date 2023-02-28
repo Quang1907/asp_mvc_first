@@ -1,0 +1,10 @@
+{
+  "version": "1.0",
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "destination": "wwwroot/lib/multiple-select/",
+      "library": "multiple-select@1.5.2"
+    }
+  ]
+}
